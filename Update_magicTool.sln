@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2041
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Update_magicTool", "Update_magicTool\Update_magicTool.vbproj", "{414DE303-120B-4AD8-8779-B0C51A346489}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{414DE303-120B-4AD8-8779-B0C51A346489}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{414DE303-120B-4AD8-8779-B0C51A346489}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{414DE303-120B-4AD8-8779-B0C51A346489}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{414DE303-120B-4AD8-8779-B0C51A346489}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {64AC6D82-F9B3-4DC5-8DE0-403EA28A4B5C}
+	EndGlobalSection
+EndGlobal
