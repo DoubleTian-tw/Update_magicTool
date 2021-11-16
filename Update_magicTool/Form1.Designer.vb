@@ -28,19 +28,16 @@ Partial Class Update_Form
         Me.checkState_Label = New System.Windows.Forms.Label()
         Me.Done_ProgressBar = New System.Windows.Forms.ProgressBar()
         Me.Done_Button = New System.Windows.Forms.Button()
-        Me.Pokemon_PictureBox = New System.Windows.Forms.PictureBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.updateResult_Label = New System.Windows.Forms.Label()
-        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Done_Label = New System.Windows.Forms.Label()
-        CType(Me.Pokemon_PictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
+        Me.updateResult_TextBox = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(27, 24)
+        Me.Label1.Location = New System.Drawing.Point(16, 24)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(56, 12)
         Me.Label1.TabIndex = 0
@@ -49,7 +46,7 @@ Partial Class Update_Form
         'checkState_Label
         '
         Me.checkState_Label.AutoSize = True
-        Me.checkState_Label.Location = New System.Drawing.Point(88, 24)
+        Me.checkState_Label.Location = New System.Drawing.Point(77, 24)
         Me.checkState_Label.Name = "checkState_Label"
         Me.checkState_Label.Size = New System.Drawing.Size(29, 12)
         Me.checkState_Label.TabIndex = 1
@@ -57,54 +54,30 @@ Partial Class Update_Form
         '
         'Done_ProgressBar
         '
-        Me.Done_ProgressBar.Location = New System.Drawing.Point(29, 171)
+        Me.Done_ProgressBar.Location = New System.Drawing.Point(31, 171)
         Me.Done_ProgressBar.Name = "Done_ProgressBar"
-        Me.Done_ProgressBar.Size = New System.Drawing.Size(350, 23)
+        Me.Done_ProgressBar.Size = New System.Drawing.Size(364, 23)
         Me.Done_ProgressBar.TabIndex = 2
         '
         'Done_Button
         '
         Me.Done_Button.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Done_Button.Location = New System.Drawing.Point(320, 200)
+        Me.Done_Button.Location = New System.Drawing.Point(339, 200)
         Me.Done_Button.Name = "Done_Button"
         Me.Done_Button.Size = New System.Drawing.Size(56, 27)
         Me.Done_Button.TabIndex = 4
         Me.Done_Button.Text = "DONE"
         Me.Done_Button.UseVisualStyleBackColor = True
         '
-        'Pokemon_PictureBox
-        '
-        Me.Pokemon_PictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.Pokemon_PictureBox.Image = CType(resources.GetObject("Pokemon_PictureBox.Image"), System.Drawing.Image)
-        Me.Pokemon_PictureBox.InitialImage = Nothing
-        Me.Pokemon_PictureBox.Location = New System.Drawing.Point(29, 78)
-        Me.Pokemon_PictureBox.Name = "Pokemon_PictureBox"
-        Me.Pokemon_PictureBox.Size = New System.Drawing.Size(55, 46)
-        Me.Pokemon_PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.Pokemon_PictureBox.TabIndex = 5
-        Me.Pokemon_PictureBox.TabStop = False
-        Me.Pokemon_PictureBox.Visible = False
-        '
-        'Timer1
-        '
-        '
         'updateResult_Label
         '
         Me.updateResult_Label.AutoSize = True
-        Me.updateResult_Label.Location = New System.Drawing.Point(3, 0)
+        Me.updateResult_Label.Location = New System.Drawing.Point(6, 57)
         Me.updateResult_Label.Name = "updateResult_Label"
         Me.updateResult_Label.Size = New System.Drawing.Size(65, 12)
         Me.updateResult_Label.TabIndex = 6
         Me.updateResult_Label.Text = "結果輸出處"
-        '
-        'Panel1
-        '
-        Me.Panel1.AutoScroll = True
-        Me.Panel1.Controls.Add(Me.updateResult_Label)
-        Me.Panel1.Location = New System.Drawing.Point(89, 39)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(287, 85)
-        Me.Panel1.TabIndex = 7
+        Me.updateResult_Label.Visible = False
         '
         'Done_Label
         '
@@ -115,15 +88,25 @@ Partial Class Update_Form
         Me.Done_Label.TabIndex = 8
         Me.Done_Label.Text = "失敗"
         '
+        'updateResult_TextBox
+        '
+        Me.updateResult_TextBox.Location = New System.Drawing.Point(74, 47)
+        Me.updateResult_TextBox.Multiline = True
+        Me.updateResult_TextBox.Name = "updateResult_TextBox"
+        Me.updateResult_TextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.updateResult_TextBox.Size = New System.Drawing.Size(321, 99)
+        Me.updateResult_TextBox.TabIndex = 9
+        '
         'Update_Form
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(407, 233)
         Me.ControlBox = False
+        Me.Controls.Add(Me.updateResult_TextBox)
+        Me.Controls.Add(Me.updateResult_Label)
         Me.Controls.Add(Me.Done_Label)
-        Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.Pokemon_PictureBox)
         Me.Controls.Add(Me.Done_Button)
         Me.Controls.Add(Me.Done_ProgressBar)
         Me.Controls.Add(Me.checkState_Label)
@@ -135,9 +118,6 @@ Partial Class Update_Form
         Me.Name = "Update_Form"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "更新"
-        CType(Me.Pokemon_PictureBox, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -147,9 +127,8 @@ Partial Class Update_Form
     Friend WithEvents checkState_Label As Label
     Friend WithEvents Done_ProgressBar As ProgressBar
     Friend WithEvents Done_Button As Button
-    Friend WithEvents Pokemon_PictureBox As PictureBox
     Friend WithEvents Timer1 As Timer
     Friend WithEvents updateResult_Label As Label
-    Friend WithEvents Panel1 As Panel
     Friend WithEvents Done_Label As Label
+    Friend WithEvents updateResult_TextBox As TextBox
 End Class
