@@ -121,11 +121,12 @@ Public Class Update_Form
                     updatefile_result = True
                 Else
                     MsgBox("本次不更新")
-                    updatefile_result = False
+                    updatefile_result = True
                 End If
             Else
                 Me.Text = "<更新>目前為最新版本:ver." & chkNewVer.GetToolVersion
-                updatefile_result = False
+                updateResult_TextBox.Text = "不更新請關閉"
+                updatefile_result = True
             End If
 
         Catch ex As Exception
