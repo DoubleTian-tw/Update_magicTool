@@ -16,7 +16,7 @@ Public Class Update_Form
     ''' </summary>
     Dim updateFolder_path As String = "M:\DESIGN\BACK UP\yc_tian\Tool Application\Tool update folder\更新" 'Application.StartupPath
     'Dim updateTool_path As String = "\\Yc-tian\共用文件夾\software\gg\更新" 'Application.StartupPath
-    Public Const main_app_name As String = "MagicTool"
+    'Public Const main_app_name As String = "MagicTool"
     Dim chkNewVer As New CheckNewVersion($"{updateFolder_path}\ToolVersion.txt", "CheckNewVersion_WindowsApp1") '建立CheckNewVersion類別
     'Dim chkNewVer As New CheckNewVersion("\\Yc-tian\共用文件夾\software\gg\更新\ToolVersion.txt", "CheckNewVersion_WindowsApp1") '建立CheckNewVersion類別
     ''' <summary>
@@ -52,7 +52,7 @@ Public Class Update_Form
     End Sub
 
     Private Sub Update_Form_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        p = Process.GetProcessesByName($"{main_app_name}")
+        p = Process.GetProcessesByName($"{ProgramAllName.fileName_mainProgram}")
         If p.Count > 0 Then
             checkState_Label.Text = "失敗-主程式未關閉-請先關閉主程式"
             checkState_Label.ForeColor = Color.Red
@@ -64,13 +64,24 @@ Public Class Update_Form
     End Sub
 
 
-    Dim mainApp_Version As FileVersionInfo =
-        FileVersionInfo.GetVersionInfo($"{System.IO.Path.GetFullPath($"{Update_Form.main_app_name}.exe")}") '執行端版本 this main program version，例如:1.2.3
-    Dim updateapp_version As FileVersionInfo =
-        FileVersionInfo.GetVersionInfo($"{ProgramAllPath.path_toolProgram}\{ProgramAllPath.folderName_update}\更新\{ProgramAllName.fileName_mainProgram}.exe") '執行端版本 this main program version，例如:1.2.3
+    Dim mainApp_Version As FileVersionInfo '=
+    'FileVersionInfo.GetVersionInfo($"{System.IO.Path.GetFullPath($"{ProgramAllName.fileName_mainProgram}.exe")}") '執行端版本 this main program version，例如:1.2.3
+    Dim updateapp_version As FileVersionInfo '=
+    'FileVersionInfo.GetVersionInfo($"{ProgramAllPath.path_toolProgram}\{ProgramAllPath.folderName_update}\更新\{ProgramAllName.fileName_updateProgram}.exe") '執行端版本 this main program version，例如:1.2.3
+    'FileVersionInfo.GetVersionInfo($"{System.IO.Path.GetFullPath($"{ProgramAllName.fileName_updateProgram}.exe")}") '執行端版本 this main program version，例如:1.2.3
 
     Private Function updating()
         Try
+            Try
+                mainApp_Version =
+                    FileVersionInfo.GetVersionInfo($"{System.IO.Path.GetFullPath($"{ProgramAllName.fileName_mainProgram}.exe")}") '執行端版本 this main program version，例如:1.2.3
+                updateapp_version =
+                    FileVersionInfo.GetVersionInfo($"{ProgramAllPath.path_toolProgram}\{ProgramAllPath.folderName_update}\更新\{ProgramAllName.fileName_mainProgram}.exe") '執行端版本 this main program version，例如:1.2.3
+            Catch ex As Exception
+                MsgBox($"找不到指定檔案，請確認路徑{vbCrLf}{ex.Message}",, "錯誤")
+                Exit Function
+            End Try
+
             Me.Text = "當前版本:" & mainApp_Version.FileVersion
             If compare_FileVersion_haveToUpdate() Then
                 Me.Text = "<更新>目前為舊版本號碼:ver." & mainApp_Version.FileVersion
@@ -116,60 +127,7 @@ Public Class Update_Form
                 Me.Text = "<更新>目前為最新版本:ver." & chkNewVer.GetToolVersion
                 updatefile_result = False
             End If
-            'Me.Text = "當前版本:" & chkNewVer.GetToolVersion
-            'chkNewVer.CheckNewVersion()
 
-
-            'Select Case chkNewVer.GetCheckConsequence '取得更新結果
-            '    Case 0 'nothing
-            '        Me.Text = "<更新>目前為最新版本:ver." & chkNewVer.GetToolVersion
-            '        Return updatefile_result = False
-            '    Case 1 '有更新
-
-            '        Me.Text = "<更新>目前為舊版本號碼:ver." & chkNewVer.GetToolVersion
-
-            '        '自動更新一些檔案
-            '        'Dim program_Name As String = Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName) '程式(EXE)的名稱
-
-            '        Dim result_msgbox As DialogResult
-            '        result_msgbox = MsgBox("目前為舊版本，是否要開始覆蓋?", vbYesNo, "提醒")
-
-            '        If result_msgbox = DialogResult.Yes Then
-
-            '            '針對 資料夾內 的[檔案]類型 ----------------------------------------------------
-            '            For Each select_file In Directory.GetFiles(updateFolder_path)
-            '                If Copy_file_and_paste(select_file, Check_File_Type.is_not_folder) = True Then
-            '                    updateResult_Label.Text += select_file & "  <覆蓋成功>" & vbCrLf
-            '                Else
-            '                    updateResult_Label.Text += select_file & "  <覆蓋失敗>" & vbCrLf
-            '                End If
-            '            Next
-            '            '----------------------------------------------------針對 資料夾內 的[檔案]類型 
-
-            '            '針對 資料夾內 的[資料夾]類型 ----------------------------------------------------
-            '            For Each select_file In Directory.GetDirectories(updateFolder_path)
-            '                For Each file_in_folder In Directory.GetFileSystemEntries(select_file)
-            '                    If Copy_file_and_paste(file_in_folder, Check_File_Type.is_folder) = True Then
-            '                        updateResult_Label.Text += file_in_folder & "  <覆蓋成功>" & vbCrLf
-            '                    Else
-            '                        updateResult_Label.Text += file_in_folder & "  <覆蓋失敗>" & vbCrLf
-            '                    End If
-            '                Next
-            '            Next
-            '            '----------------------------------------------------針對 資料夾內 的[資料夾]類型 
-            '            Done_Msg()
-            '            Return updatefile_result = True
-            '        Else
-            '            MsgBox("本次不更新")
-            '            Return updatefile_result = False
-            '        End If
-
-
-            '    Case 2 '更新失敗
-            '        Me.Text = "更新失敗"
-            '        MsgBox("更新失敗", MsgBoxStyle.Critical)
-            '        Return updatefile_result = False
-            'End Select
         Catch ex As Exception
             MsgBox(ex.ToString, vbCritical, "錯誤")
         End Try
@@ -221,9 +179,14 @@ Public Class Update_Form
             End Try
         ElseIf pathIsFolder = Check_File_Type.is_not_folder Then
             Try
-                FileCopy(myfile, Application.StartupPath & "\" & Path.GetFileName(myfile))
-                updatefile_count += 1
-                Return True
+                If Path.GetFileName(myfile) = ProgramAllName.fileName_updateProgram Then
+                    '更新主程式不覆蓋
+                    Return False
+                Else
+                    FileCopy(myfile, Application.StartupPath & "\" & Path.GetFileName(myfile))
+                    updatefile_count += 1
+                    Return True
+                End If
             Catch ex As Exception
                 Return False
             End Try
@@ -232,7 +195,12 @@ Public Class Update_Form
 
     Private Sub Done_Msg()
         For i As Double = 1 To updatefile_count
-            Done_ProgressBar.Value += (100 / updatefile_count)
+            Dim value As Integer
+            value += (100 / updatefile_count)
+            If value > 100 Then
+                Exit For
+            End If
+            Done_ProgressBar.Value = value
             Me.Refresh()
             Done_Label.Text = Done_ProgressBar.Value & "%"
         Next
@@ -247,7 +215,7 @@ Public Class Update_Form
 
     Private Sub Done_Button_Click(sender As Object, e As EventArgs) Handles Done_Button.Click
         If updatefile_result Then
-            Process.Start($"{Application.StartupPath}\{main_app_name}.exe")
+            Process.Start($"{Application.StartupPath}\{ProgramAllName.fileName_mainProgram}.exe")
             'update_p = Process.GetProcessesByName("Update_magicTool")
         End If
         Me.Close()
