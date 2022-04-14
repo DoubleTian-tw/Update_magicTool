@@ -65,7 +65,6 @@ Public Class CheckNewVersion
 
     Public ReadOnly Property GetToolVersion() As String '取得程式的版本號碼(格式:x.x.x)
         Get
-            'Return My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & "." & My.Application.Info.Version.Build '取得版本號碼
             Dim fileName As String = $"{ProgramAllName.fileName_mainProgram}.exe"
             Dim filePath As String
             Dim fileVer_Maj, fileVer_Min, fileVer_Build, fileVersion As String

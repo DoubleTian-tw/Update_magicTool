@@ -15,16 +15,11 @@ Public Class Update_Form
     ''' 資料夾[更新]的路徑
     ''' </summary>
     Dim updateFolder_path As String = "M:\DESIGN\BACK UP\yc_tian\Tool Application\Tool update folder\更新" 'Application.StartupPath
-    'Dim updateTool_path As String = "\\Yc-tian\共用文件夾\software\gg\更新" 'Application.StartupPath
-    'Public Const main_app_name As String = "MagicTool"
     Dim chkNewVer As New CheckNewVersion($"{updateFolder_path}\ToolVersion.txt", "CheckNewVersion_WindowsApp1") '建立CheckNewVersion類別
-    'Dim chkNewVer As New CheckNewVersion("\\Yc-tian\共用文件夾\software\gg\更新\ToolVersion.txt", "CheckNewVersion_WindowsApp1") '建立CheckNewVersion類別
     ''' <summary>
     ''' 更新資料夾裡的子資料夾名稱
     ''' </summary>
     Dim updateFolder_name As String
-
-    'Dim updateResult_bol As Boolean = True '更新結果2文字 當覆蓋檔案成功時就輸出一行文字
 
     ''' <summary>
     ''' 更新資料夾裡的檔案數量
@@ -41,13 +36,11 @@ Public Class Update_Form
     End Enum
 
     Private Sub Update_Form_Load(sender As Object, e As EventArgs) Handles Me.Load
-
-        'bmp = New Bitmap(Pokemon_PictureBox.Image)
         Try
             updateResult_Label.Text = ""
             Done_Label.Text = "0%"
-        Catch ee As Exception
-            Console.WriteLine((ee.Message))
+        Catch ex As Exception
+            Console.WriteLine((ex.Message))
         End Try
     End Sub
 
@@ -64,13 +57,10 @@ Public Class Update_Form
     End Sub
 
 
-    Dim mainApp_Version As FileVersionInfo '=
-    'FileVersionInfo.GetVersionInfo($"{System.IO.Path.GetFullPath($"{ProgramAllName.fileName_mainProgram}.exe")}") '執行端版本 this main program version，例如:1.2.3
-    Dim updateapp_version As FileVersionInfo '=
-    'FileVersionInfo.GetVersionInfo($"{ProgramAllPath.path_toolProgram}\{ProgramAllPath.folderName_update}\更新\{ProgramAllName.fileName_updateProgram}.exe") '執行端版本 this main program version，例如:1.2.3
-    'FileVersionInfo.GetVersionInfo($"{System.IO.Path.GetFullPath($"{ProgramAllName.fileName_updateProgram}.exe")}") '執行端版本 this main program version，例如:1.2.3
+    Dim mainApp_Version As FileVersionInfo
+    Dim updateapp_version As FileVersionInfo
 
-    Private Function updating()
+    Private Sub updating()
         Try
             Try
                 mainApp_Version =
@@ -79,7 +69,7 @@ Public Class Update_Form
                     FileVersionInfo.GetVersionInfo($"{ProgramAllPath.path_toolProgram}\{ProgramAllPath.folderName_update}\更新\{ProgramAllName.fileName_mainProgram}.exe") '執行端版本 this main program version，例如:1.2.3
             Catch ex As Exception
                 MsgBox($"找不到指定檔案，請確認路徑{vbCrLf}{ex.Message}",, "錯誤")
-                Exit Function
+                Exit Sub
             End Try
 
             Me.Text = "當前版本:" & mainApp_Version.FileVersion
@@ -94,10 +84,8 @@ Public Class Update_Form
                     '針對 資料夾內 的[檔案]類型 ----------------------------------------------------
                     For Each select_file In Directory.GetFiles(updateFolder_path)
                         If Copy_file_and_paste(select_file, Check_File_Type.is_not_folder) = True Then
-                            'updateResult_Label.Text += select_file & "  <覆蓋成功>" & vbCrLf
                             writeInfo_toTextBox_focusOnBelow(updateResult_TextBox, $"從 ** {select_file} ** < 覆蓋成功 >")
                         Else
-                            'updateResult_Label.Text += select_file & "  <覆蓋失敗>" & vbCrLf
                             writeInfo_toTextBox_focusOnBelow(updateResult_TextBox, $"從 ** {select_file} ** < 覆蓋失敗 >")
                         End If
                     Next
@@ -107,10 +95,8 @@ Public Class Update_Form
                     For Each select_file In Directory.GetDirectories(updateFolder_path)
                         For Each file_in_folder In Directory.GetFileSystemEntries(select_file)
                             If Copy_file_and_paste(file_in_folder, Check_File_Type.is_folder) = True Then
-                                'updateResult_Label.Text += file_in_folder & "  <覆蓋成功>" & vbCrLf
                                 writeInfo_toTextBox_focusOnBelow(updateResult_TextBox, $"從 ** {file_in_folder} ** < 覆蓋成功 >")
                             Else
-                                'updateResult_Label.Text += file_in_folder & "  <覆蓋失敗>" & vbCrLf
                                 writeInfo_toTextBox_focusOnBelow(updateResult_TextBox, $"從 ** {file_in_folder} ** < 覆蓋失敗 >")
 
                             End If
@@ -120,7 +106,7 @@ Public Class Update_Form
                     Done_Msg()
                     updatefile_result = True
                 Else
-                    MsgBox("本次不更新")
+                    MsgBox("本次不更新",, "提示")
                     updatefile_result = True
                 End If
             Else
@@ -133,14 +119,14 @@ Public Class Update_Form
             MsgBox(ex.ToString, vbCritical, "錯誤")
         End Try
 
-    End Function
+    End Sub
 
     ''' <summary>
     ''' 比較版本是否需要更新? Ture要/False否
     ''' </summary>
     ''' <returns></returns>
     Private Function compare_FileVersion_haveToUpdate() As Boolean
-
+        compare_FileVersion_haveToUpdate = False
         Dim thisAppVer_First, thisAppVer_Second, thisAppVer_Third As Integer
 
         thisAppVer_First = mainApp_Version.FileMajorPart  '1.2.3取得版本的1
@@ -165,6 +151,7 @@ Public Class Update_Form
     End Function
 
     Private Function Copy_file_and_paste(myfile As String, pathIsFolder As Check_File_Type) As Boolean
+        Copy_file_and_paste = False
         If pathIsFolder = Check_File_Type.is_folder Then
             Try
                 If myfile <> "" Then
@@ -217,7 +204,6 @@ Public Class Update_Form
     Private Sub Done_Button_Click(sender As Object, e As EventArgs) Handles Done_Button.Click
         If updatefile_result Then
             Process.Start($"{Application.StartupPath}\{ProgramAllName.fileName_mainProgram}.exe")
-            'update_p = Process.GetProcessesByName("Update_magicTool")
         End If
         Me.Close()
     End Sub
