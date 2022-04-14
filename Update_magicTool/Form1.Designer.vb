@@ -22,13 +22,11 @@ Partial Class Update_Form
     '請勿使用程式碼編輯器進行修改。
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Update_Form))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.checkState_Label = New System.Windows.Forms.Label()
         Me.Done_ProgressBar = New System.Windows.Forms.ProgressBar()
         Me.Done_Button = New System.Windows.Forms.Button()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.updateResult_Label = New System.Windows.Forms.Label()
         Me.Done_Label = New System.Windows.Forms.Label()
         Me.updateResult_TextBox = New System.Windows.Forms.TextBox()
@@ -127,7 +125,6 @@ Partial Class Update_Form
     Friend WithEvents checkState_Label As Label
     Friend WithEvents Done_ProgressBar As ProgressBar
     Friend WithEvents Done_Button As Button
-    Friend WithEvents Timer1 As Timer
     Friend WithEvents updateResult_Label As Label
     Friend WithEvents Done_Label As Label
     Friend WithEvents updateResult_TextBox As TextBox
